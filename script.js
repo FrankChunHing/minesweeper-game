@@ -30,7 +30,22 @@ for (var row = 0; row < ROWS_COUNT; row++) {
 // cells[0][1].isBomb = true;
 // cells[5][4].isBomb = true;
 // cells[9][9].isBomb = true;
+function genRandom(num) {
+  return Math.floor(Math.random() * (num));
+}
 
+// Function to set bombs on the game grid
+function setBomb(num) {
+  for (let i = 0; i < num; i++) {
+    
+    let randomRow = genRandom(ROWS_COUNT);
+    let randomCol = genRandom(COLS_COUNT);
+    cells[randomRow][randomCol].isBomb = true; 
+    console.log(cells[randomRow][randomCol].isBomb)
+  }
+}
+
+setBomb(13)
 //
 // TODO: Task 2 - Comment out the code of task 1. Instead of adding bombs in fixed places, add 10 of them in random places.
 //                Add a BOMBS_COUNT constant so that you can easily change the amount of bombs placed. Put it next to the
