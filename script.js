@@ -1,7 +1,7 @@
 
 // Set this constant to true to debug the placement of bombs without
 // having to click on all cells to reveal them.
-const CHEAT_REVEAL_ALL = true;
+const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
@@ -64,12 +64,53 @@ render();
 function discoverCell(row, col) {
   //
   // TODO: Task 5 - Reveal cells when clicked.
-  //
+  // //
+  // document.getElementById("playfield").addEventListener('click', function(event) {
+  //   if (event.button === 0) {
+  //     var clickedCell = event.target; // Get the element that was clicked
+      
+      // Add the "discovered" class to the clicked cell
+      // clickedCell.classList.add('discovered');
+      // console.log('Clicked cell:', row, col);
+    // // }})
 
+    if (row < 0 || row >= ROWS_COUNT || col < 0 || col >= COLS_COUNT) {
+      return;
+    }
+    if (cells[row][col].discovered || cells[row][col].isBomb ) {
+      return;
+    }
+    cells[row][col].discovered = true;
   //
   // TODO: Task 6 - Discover neighbor cells recursively, as long as there are no adjacent bombs to the current cell.
   //
 
+    if (countAdjacentBombs(row, col) === 0) {
+      discoverCell(row + 1, col); // down
+      discoverCell(row - 1, col); // up
+      discoverCell(row, col + 1); // right
+      discoverCell(row, col - 1); // left
+    }
+
+
+  // function checkNoBomb(row, col){
+    // if (row + 1 <= ROWS_COUNT) { 
+    //   if (countAdjacentBombs[row + 1][col] === 0 && cells[row + 1][col].discovered === false){
+    //     discoverCell(row + 1, col)
+    // }  }
+    // if (row - 1 >= 0) { 
+    //   if (countAdjacentBombs[row - 1][col] === 0 && cells[row - 1][col].discovered === false){
+    //     discoverCell(row - 1, col)
+    //   }  }
+    // if (col + 1 <= ROWS_COUNT) { 
+    //   if (countAdjacentBombs[row][col + 1] === 0 && cells[row][col + 1].discovered === false){
+    //     discoverCell(row, col + 1)
+    // }  }
+    // if (col - 1 >= 0) { 
+    //   if (countAdjacentBombs[row][col - 1] === 0 && cells[row][col - 1].discovered === false){
+    //     discoverCell(row, col - 1)
+    //   }  }
+  // }
   //
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
