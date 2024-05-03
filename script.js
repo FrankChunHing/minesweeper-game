@@ -1,7 +1,7 @@
 
 // Set this constant to true to debug the placement of bombs without
 // having to click on all cells to reveal them.
-const CHEAT_REVEAL_ALL = false;
+const CHEAT_REVEAL_ALL = true;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
@@ -89,7 +89,21 @@ function countAdjacentBombs(row, col) {
   // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
   //                so that it returns the count of adjacent cells with bombs in them. 
   //
-  return 1;
+  let result = 0;
+
+  for (let i= -1; i< 2; i++){
+    for (let j = -1; j< 2; j++){
+      if (i === 0 && j === 0) continue;
+      if (row + i < 0 || row + i >= ROWS_COUNT || col + j < 0 || col + j >= COLS_COUNT) continue;
+      
+      if ( cells[row + i][col + j].isBomb) {
+        result += 1;
+        
+      }
+    }
+  }
+  // console.log(result)
+  return result;
 }
 
 function getBombsCount() {
@@ -135,6 +149,7 @@ function getMessage() {
 
 // "Render" the game. Update the content of the page to reflect any changes to the game state.
 function render() {
+  console.log("render")
   var playfield = document.getElementById("playfield");
   var html = "";
   for (var row = 0; row < ROWS_COUNT; row++) {
